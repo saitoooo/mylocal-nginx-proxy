@@ -1,0 +1,23 @@
+# https://qiita.com/fukuyama012/items/5d4390ae4a34ba477cef
+# こちら参照の事
+# docker network create --driver bridge shared_net
+# で仮想ネットワークを作成しておく
+version: "3"
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /run/user/501/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:r
+      - ./document_root:/usr/share/nginx/html
+    restart: always
+    networks:
+      - shared_net
+
+networks:
+  shared_net:
+    external: true
