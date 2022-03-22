@@ -11,7 +11,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /run/user/501/docker.sock:/tmp/docker.sock:ro
+      # - /run/user/501/docker.sock:/tmp/docker.sock:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro      
       - ./certs:/etc/nginx/certs:r
       - ./document_root:/usr/share/nginx/html
     restart: always
